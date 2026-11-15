@@ -6,6 +6,7 @@ import {
 } from "@nestjs/common";
 import { EntityManager } from "@mikro-orm/postgresql";
 import { OutboxRepository } from "../database/repositories/outbox.repository";
+import { MetricsService } from "../observability/metrics.service";
 
 @Injectable()
 export class OutboxPublisherWorker implements OnModuleInit, OnModuleDestroy {
@@ -37,7 +38,15 @@ export class OutboxPublisherWorker implements OnModuleInit, OnModuleDestroy {
       const fork = this.em.fork();
       await fork.transactional(async (txEm) => {
         const dueMessages = await this.outboxRepo.findDue(txEm, 20);
-        if (dueMessages.length === 0) return;
+        if (dueMessages.length === 0) {
+          MetricsService.get().setOutboxGauge(0, 0);
+          return;
+        }
+
+        const now = Date.now();
+        const oldest = dueMessages[0];
+        const lagSeconds = oldest ? Math.max(0, Math.floor((now - oldest.occurredAt.getTime()) / 1000)) : 0;
+        MetricsService.get().setOutboxGauge(dueMessages.length, lagSeconds);
 
         for (const msg of dueMessages) {
           try {

@@ -1,7 +1,8 @@
 # Technical Challenge — Distributed Wagering Processor
 
 > **Implementação Oficial da Solução para a Jungle Gaming 🦧**  
-> Arquitetura detalhada, justificativas e decisões técnicas disponíveis em [ARCHITECTURE.md](ARCHITECTURE.md).
+> - Arquitetura detalhada, justificativas e decisões técnicas disponíveis em [ARCHITECTURE.md](ARCHITECTURE.md).  
+> - Metodologia de desenvolvimento com IA e Guia de Defesa do Candidato em [AI-PAIR-PROGRAMMING.md](AI-PAIR-PROGRAMMING.md).
 
 ---
 
@@ -28,7 +29,7 @@ Para subir o banco de dados com constraints nativas, filas SQS FIFO e **3 instâ
 docker compose up --build
 ```
 Endpoints disponíveis:
-- Instância 1: `http://localhost:3001`
+- Instância 1: `http://localhost:3001` (Dashboard: `http://localhost:3001/dashboard`, Swagger: `http://localhost:3001/docs`, Métricas: `http://localhost:3001/metrics`)
 - Instância 2: `http://localhost:3002`
 - Instância 3: `http://localhost:3003`
 - LocalStack SQS: `http://localhost:4566`

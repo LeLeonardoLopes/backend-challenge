@@ -117,3 +117,26 @@ O sistema expõe o endpoint `POST /wallets/:walletId/reconciliation`, que execut
 $$\text{storedBalance} - \sum (\text{Créditos} - \text{Débitos}) == 0.00$$
 
 Qualquer divergência é sinalizada com `consistent: false` e log estruturado em nível `WARN`. Nos testes automatizados e no benchmark de concorrência, a consistência atinge 100%.
+
+---
+
+## 5. Observabilidade & Métricas Operacionais (Seção 12 do Desafio)
+
+O processador expõe telemetria completa via logs estruturados JSON e coletor de métricas nativo compatível com **Prometheus** no endpoint `GET /metrics`:
+
+* **Métricas Coletadas:**
+  - `wager_transactions_total{status, kind, provider}`: volume de transações por estado (`PROCESSED`, `PENDING_REFERENCE`, `REJECTED`, `REPLAY`).
+  - `wager_idempotency_duplicates_total`: contagem de requisições duplicadas interceptadas com segurança.
+  - `wager_lock_conflicts_total`: colisões de chave única capturadas e resolvidas entre instâncias.
+  - `wager_sqs_retries_total`: retries de processamento de mensagens no SQS.
+  - `wager_dlq_messages_total`: mensagens encaminhadas para fila morta (Dead Letter Queue).
+  - `wager_outbox_pending_messages` e `wager_outbox_lag_seconds`: monitoramento de lag do worker de Outbox.
+  - `wager_processing_duration_ms`: latência de processamento em percentis (p50, p95, p99 e média).
+* **Health Checks:** `/health/live` (liveness) e `/health/ready` (readiness com ping no PostgreSQL).
+
+---
+
+## 6. Metodologia de Desenvolvimento e Guia de Defesa do Candidato
+
+Para entender o processo de engenharia guiada com IA, as sabatinas conceituais e o roteiro de perguntas e respostas para a entrevista técnica, consulte o documento dedicado:
+👉 **[AI-PAIR-PROGRAMMING.md](AI-PAIR-PROGRAMMING.md)**.

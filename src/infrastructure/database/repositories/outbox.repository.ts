@@ -1,4 +1,5 @@
 import { EntityManager } from "@mikro-orm/postgresql";
+import { LockMode } from "@mikro-orm/core";
 import { OutboxMessage } from "../../../domain/entities/outbox-message";
 import { OutboxMessageEntity } from "../entities/outbox-message.entity";
 
@@ -24,7 +25,11 @@ export class OutboxRepository {
         publishedAt: null,
         $or: [{ nextAttemptAt: null }, { nextAttemptAt: { $lte: now } }],
       },
-      { limit, orderBy: { occurredAt: "ASC" } }
+      {
+        limit,
+        orderBy: { occurredAt: "ASC" },
+        lockMode: LockMode.PESSIMISTIC_PARTIAL_WRITE,
+      }
     );
 
     return entities.map((e) =>

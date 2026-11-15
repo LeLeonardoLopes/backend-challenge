@@ -1,4 +1,5 @@
 import { EntityManager } from "@mikro-orm/postgresql";
+import { MetricsService } from "../../infrastructure/observability/metrics.service";
 import {
   WagerTransaction,
   WagerTransactionKind,
@@ -71,9 +72,10 @@ export class ProcessWagerTransactionUseCase {
     });
 
     const money = Money.from(dto.money);
+    const startTime = performance.now();
 
     try {
-      return await em.transactional(async (txEm) => {
+      const result = await em.transactional(async (txEm) => {
         // 2. Check Idempotency Key
         const existingTx = await this.wagerRepo.findByIdempotencyKey(txEm, idempotencyKey);
         if (existingTx) {
@@ -83,6 +85,11 @@ export class ProcessWagerTransactionUseCase {
 
           // Idempotent Replay: Fetch current wallet balance to return stable response
           const wallet = await this.walletRepo.findById(txEm, dto.walletId);
+          MetricsService.get().recordDuplicate();
+          MetricsService.get().recordTransaction(
+            { status: "REPLAY", kind: dto.kind, provider: dto.providerId },
+            performance.now() - startTime
+          );
           return {
             transactionId: existingTx.id,
             status: existingTx.status,
@@ -124,13 +131,25 @@ export class ProcessWagerTransactionUseCase {
         // 5. Execute Business Rules by Kind
         return this.applyTransaction(txEm, wallet, tx, correlationId);
       });
+
+      MetricsService.get().recordTransaction(
+        { status: result.status, kind: dto.kind, provider: dto.providerId },
+        performance.now() - startTime
+      );
+      return result;
     } catch (err: any) {
       // Handle PostgreSQL unique constraint collision across concurrent instances
       if (err.message?.includes("unique_idempotency_key") || err.code === "23505") {
+        MetricsService.get().recordLockConflict();
+        MetricsService.get().recordDuplicate();
         const cleanEm = em.fork();
         const existingTx = await this.wagerRepo.findByIdempotencyKey(cleanEm, idempotencyKey);
         if (existingTx) {
           const wallet = await this.walletRepo.findById(cleanEm, dto.walletId);
+          MetricsService.get().recordTransaction(
+            { status: "REPLAY", kind: dto.kind, provider: dto.providerId },
+            performance.now() - startTime
+          );
           return {
             transactionId: existingTx.id,
             status: existingTx.status,

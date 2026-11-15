@@ -6,6 +6,8 @@ import { WalletsController } from "./infrastructure/http/controllers/wallets.con
 import { WageringController } from "./infrastructure/http/controllers/wagering.controller";
 import { HealthController } from "./infrastructure/http/controllers/health.controller";
 import { DashboardController } from "./infrastructure/http/controllers/dashboard.controller";
+import { MetricsController } from "./infrastructure/http/controllers/metrics.controller";
+import { MetricsService } from "./infrastructure/observability/metrics.service";
 import { WalletRepository } from "./infrastructure/database/repositories/wallet.repository";
 import { LedgerRepository } from "./infrastructure/database/repositories/ledger.repository";
 import { WagerTransactionRepository } from "./infrastructure/database/repositories/wager-transaction.repository";
@@ -25,6 +27,7 @@ import { PendingReferenceWorker } from "./infrastructure/messaging/pending-refer
     WageringController,
     HealthController,
     DashboardController,
+    MetricsController,
   ],
   providers: [
     // Direct MikroORM & EntityManager Provider (clean, resilient, native Bun support)
@@ -76,11 +79,14 @@ import { PendingReferenceWorker } from "./infrastructure/messaging/pending-refer
       inject: [WalletRepository, LedgerRepository],
     },
 
+    // Observability & Metrics
+    MetricsService,
+
     // Background workers & SQS consumer
     SqsConsumerService,
     OutboxPublisherWorker,
     PendingReferenceWorker,
   ],
-  exports: [MikroORM, EntityManager],
+  exports: [MikroORM, EntityManager, MetricsService],
 })
 export class AppModule {}

@@ -16,6 +16,7 @@ import { ProcessWagerTransactionUseCase } from "../../application/use-cases/proc
 import { InboxRepository } from "../database/repositories/inbox.repository";
 import { InboxMessage } from "../../domain/entities/inbox-message";
 import { computeCanonicalPayloadHash } from "../../domain/utils/canonical-hash";
+import { MetricsService } from "../observability/metrics.service";
 
 @Injectable()
 export class SqsConsumerService implements OnModuleInit, OnModuleDestroy {
@@ -128,6 +129,7 @@ export class SqsConsumerService implements OnModuleInit, OnModuleDestroy {
         const existingInbox = await this.inboxRepo.find(txEm, this.consumerName, messageId);
         if (existingInbox && existingInbox.isProcessed()) {
           this.logger.log(`Message ${messageId} already processed in Inbox. Skipping re-execution.`);
+          MetricsService.get().recordDuplicate();
           return;
         }
 
@@ -148,6 +150,7 @@ export class SqsConsumerService implements OnModuleInit, OnModuleDestroy {
       await this.ack(msg.ReceiptHandle);
     } catch (err: any) {
       this.logger.error(`Error processing SQS message: ${err.message}`, err.stack);
+      MetricsService.get().recordSqsRetry();
       // Let visibility timeout expire so SQS can retry (eventually routing to DLQ after maxReceiveCount)
     } finally {
       this.inFlightMessages -= 1;
