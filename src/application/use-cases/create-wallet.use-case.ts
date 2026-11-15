@@ -45,8 +45,9 @@ export class CreateWalletUseCase {
         initialBalance: initialMoney,
       });
 
-      // 3. Persist Wallet
+      // 3. Persist Wallet (flush to ensure row exists before ledger references its foreign key)
       await this.walletRepo.save(txEm, wallet);
+      await txEm.flush();
 
       // 4. If initial balance > 0, record opening ledger entry and outbox event
       if (openingEntry) {

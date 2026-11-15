@@ -34,7 +34,9 @@ export class StructuredLogger implements LoggerService {
 
   error(message: any, trace?: string, context?: LogContext | string) {
     const ctx = typeof context === "object" ? { ...context, trace } : { context, trace };
-    console.error(this.formatLog("ERROR", message, ctx));
+    const errText = message ? (typeof message === "string" ? message : JSON.stringify(message)) : (trace || "Unknown error");
+    console.error(this.formatLog("ERROR", errText, ctx));
+    if (trace) console.error(trace);
   }
 
   warn(message: any, context?: LogContext | string) {

@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 /**
  * Load & Concurrency Benchmark Runner for Jungle Gaming Challenge
  * Measures: Throughput (RPS), p50/p95/p99 latencies, error rates, and final reconciliation invariant.
@@ -7,7 +9,7 @@ async function runLoadBenchmark() {
   console.log("🦧 Jungle Gaming Distributed Wagering Processor — Load Benchmark");
   console.log("==================================================================");
 
-  const baseUrl = process.env.BASE_URL || "http://localhost:3001";
+  const baseUrl = process.env.BASE_URL || "http://localhost:3000";
   const numRequests = Number(process.env.NUM_REQUESTS) || 200;
   const concurrency = Number(process.env.CONCURRENCY) || 20;
 
@@ -15,7 +17,7 @@ async function runLoadBenchmark() {
   console.log(`Requests: ${numRequests} | Concurrency: ${concurrency}`);
 
   // Test setup: Create a wallet with initial balance
-  const playerId = `bench-player-${Date.now()}`;
+  const playerId = randomUUID();
   let walletId: string;
 
   try {
