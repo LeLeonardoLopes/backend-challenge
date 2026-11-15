@@ -5,6 +5,7 @@ import mikroOrmConfig from "./infrastructure/database/mikro-orm.config";
 import { WalletsController } from "./infrastructure/http/controllers/wallets.controller";
 import { WageringController } from "./infrastructure/http/controllers/wagering.controller";
 import { HealthController } from "./infrastructure/http/controllers/health.controller";
+import { DashboardController } from "./infrastructure/http/controllers/dashboard.controller";
 import { WalletRepository } from "./infrastructure/database/repositories/wallet.repository";
 import { LedgerRepository } from "./infrastructure/database/repositories/ledger.repository";
 import { WagerTransactionRepository } from "./infrastructure/database/repositories/wager-transaction.repository";
@@ -19,7 +20,12 @@ import { PendingReferenceWorker } from "./infrastructure/messaging/pending-refer
 
 @Global()
 @Module({
-  controllers: [WalletsController, WageringController, HealthController],
+  controllers: [
+    WalletsController,
+    WageringController,
+    HealthController,
+    DashboardController,
+  ],
   providers: [
     // Direct MikroORM & EntityManager Provider (clean, resilient, native Bun support)
     {
