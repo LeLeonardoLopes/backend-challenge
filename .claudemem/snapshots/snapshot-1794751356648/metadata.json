@@ -1,0 +1,129 @@
+{
+  "id": "snapshot-1794751356648",
+  "timestamp": 1794751356648,
+  "date": "2026-11-15T14:02:37.107Z",
+  "git": {
+    "branch": "main",
+    "modified": [],
+    "created": [],
+    "deleted": [],
+    "recentCommits": [
+      {
+        "hash": "c7143e6d041585d6913f56eb7415105e074f83dc",
+        "date": "2026-07-29T14:02:03-03:00",
+        "message": "Update README.md",
+        "refs": "HEAD -> main, origin/main, origin/HEAD",
+        "body": "",
+        "author_name": "Robson Cezario",
+        "author_email": "42919834+robsoncezario@users.noreply.github.com"
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "test\\unit\\canonical-hash.spec.ts",
+      "size": 1112,
+      "modified": "2026-11-15T14:02:20.971Z"
+    },
+    {
+      "path": "test\\unit\\wager-transaction.spec.ts",
+      "size": 3076,
+      "modified": "2026-11-15T14:02:06.088Z"
+    },
+    {
+      "path": "test\\unit\\wallet.spec.ts",
+      "size": 3475,
+      "modified": "2026-11-15T14:01:56.457Z"
+    },
+    {
+      "path": "test\\unit\\money.spec.ts",
+      "size": 2815,
+      "modified": "2026-11-15T14:01:47.022Z"
+    },
+    {
+      "path": "src\\domain\\utils\\canonical-hash.ts",
+      "size": 1117,
+      "modified": "2026-11-15T14:01:35.921Z"
+    },
+    {
+      "path": "src\\domain\\entities\\outbox-message.ts",
+      "size": 2368,
+      "modified": "2026-11-15T14:01:29.287Z"
+    },
+    {
+      "path": "src\\domain\\events\\integration-event.ts",
+      "size": 4467,
+      "modified": "2026-11-15T14:01:13.652Z"
+    },
+    {
+      "path": "src\\domain\\entities\\inbox-message.ts",
+      "size": 1284,
+      "modified": "2026-11-15T14:01:01.462Z"
+    },
+    {
+      "path": "src\\domain\\entities\\wager-transaction.ts",
+      "size": 6341,
+      "modified": "2026-11-15T14:00:53.622Z"
+    },
+    {
+      "path": "src\\domain\\entities\\wallet.ts",
+      "size": 3517,
+      "modified": "2026-11-15T14:00:38.804Z"
+    },
+    {
+      "path": "src\\domain\\entities\\wallet-ledger-entry.ts",
+      "size": 2463,
+      "modified": "2026-11-15T14:00:23.470Z"
+    },
+    {
+      "path": "src\\domain\\value-objects\\money.ts",
+      "size": 3668,
+      "modified": "2026-11-15T14:00:06.948Z"
+    },
+    {
+      "path": "src\\domain\\errors\\domain-errors.ts",
+      "size": 1577,
+      "modified": "2026-11-15T13:59:50.145Z"
+    },
+    {
+      "path": "tsconfig.json",
+      "size": 759,
+      "modified": "2026-11-15T13:59:16.740Z"
+    },
+    {
+      "path": "package.json",
+      "size": 1302,
+      "modified": "2026-11-15T13:59:09.049Z"
+    },
+    {
+      "path": "README.md",
+      "size": 28243,
+      "modified": "2026-11-15T13:54:47.753Z"
+    }
+  ],
+  "summary": {
+    "totalFiles": 16,
+    "recentlyModified": 16,
+    "keyFiles": [
+      "test\\unit\\canonical-hash.spec.ts",
+      "test\\unit\\wager-transaction.spec.ts",
+      "test\\unit\\wallet.spec.ts",
+      "test\\unit\\money.spec.ts",
+      "src\\domain\\utils\\canonical-hash.ts",
+      "src\\domain\\entities\\outbox-message.ts",
+      "src\\domain\\events\\integration-event.ts",
+      "src\\domain\\entities\\inbox-message.ts",
+      "src\\domain\\entities\\wager-transaction.ts",
+      "src\\domain\\entities\\wallet.ts"
+    ],
+    "sessionContext": {
+      "imports": [],
+      "exports": [],
+      "functions": [
+        "function computeCanonicalPayloadHash",
+        "function serializeCanonical"
+      ],
+      "todos": []
+    }
+  }
+}

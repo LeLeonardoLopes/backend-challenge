@@ -1,0 +1,18 @@
+{
+  "projectPath": "C:\\Users\\Leo_PC\\Desktop\\backend-challenge",
+  "memoryDir": ".claudemem",
+  "captureInterval": 60000,
+  "maxSnapshots": 100,
+  "includePatterns": [
+    "**/*.js",
+    "**/*.ts",
+    "**/*.py",
+    "**/*.md",
+    "**/*.json"
+  ],
+  "excludePatterns": [
+    "node_modules/**",
+    ".git/**",
+    "undefined/**"
+  ]
+}

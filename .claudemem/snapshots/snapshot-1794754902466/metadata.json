@@ -1,0 +1,279 @@
+{
+  "id": "snapshot-1794754902466",
+  "timestamp": 1794754902466,
+  "date": "2026-11-15T15:01:42.634Z",
+  "git": {
+    "branch": "main",
+    "modified": [
+      "README.md"
+    ],
+    "created": [],
+    "deleted": [],
+    "recentCommits": [
+      {
+        "hash": "c7143e6d041585d6913f56eb7415105e074f83dc",
+        "date": "2026-07-29T14:02:03-03:00",
+        "message": "Update README.md",
+        "refs": "HEAD -> main, origin/main, origin/HEAD",
+        "body": "",
+        "author_name": "Robson Cezario",
+        "author_email": "42919834+robsoncezario@users.noreply.github.com"
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "src\\main.ts",
+      "size": 1120,
+      "modified": "2026-11-15T15:01:20.404Z"
+    },
+    {
+      "path": "src\\infrastructure\\observability\\structured-logger.service.ts",
+      "size": 1752,
+      "modified": "2026-11-15T15:01:14.473Z"
+    },
+    {
+      "path": "test\\concurrency\\concurrent-bets.spec.ts",
+      "size": 8471,
+      "modified": "2026-11-15T15:00:56.780Z"
+    },
+    {
+      "path": "README.md",
+      "size": 29654,
+      "modified": "2026-11-15T14:16:43.753Z"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "size": 8687,
+      "modified": "2026-11-15T14:16:28.099Z"
+    },
+    {
+      "path": "test\\load\\run.ts",
+      "size": 4763,
+      "modified": "2026-11-15T14:15:51.677Z"
+    },
+    {
+      "path": "test\\unit\\process-wager.use-case.spec.ts",
+      "size": 7587,
+      "modified": "2026-11-15T14:15:31.869Z"
+    },
+    {
+      "path": "src\\app.module.ts",
+      "size": 3235,
+      "modified": "2026-11-15T14:14:57.134Z"
+    },
+    {
+      "path": "package.json",
+      "size": 1397,
+      "modified": "2026-11-15T14:14:47.734Z"
+    },
+    {
+      "path": "src\\infrastructure\\messaging\\pending-reference.worker.ts",
+      "size": 5222,
+      "modified": "2026-11-15T14:14:01.230Z"
+    },
+    {
+      "path": "src\\infrastructure\\messaging\\outbox-publisher.worker.ts",
+      "size": 1963,
+      "modified": "2026-11-15T14:13:48.105Z"
+    },
+    {
+      "path": "src\\infrastructure\\messaging\\sqs-consumer.service.ts",
+      "size": 5359,
+      "modified": "2026-11-15T14:13:38.433Z"
+    },
+    {
+      "path": "src\\infrastructure\\http\\controllers\\health.controller.ts",
+      "size": 1432,
+      "modified": "2026-11-15T14:13:20.823Z"
+    },
+    {
+      "path": "src\\infrastructure\\http\\controllers\\wagering.controller.ts",
+      "size": 2728,
+      "modified": "2026-11-15T14:13:13.797Z"
+    },
+    {
+      "path": "src\\infrastructure\\http\\controllers\\wallets.controller.ts",
+      "size": 2403,
+      "modified": "2026-11-15T14:13:04.361Z"
+    },
+    {
+      "path": "src\\infrastructure\\http\\filters\\domain-exception.filter.ts",
+      "size": 1810,
+      "modified": "2026-11-15T14:12:55.588Z"
+    },
+    {
+      "path": "src\\infrastructure\\http\\dto\\process-wager.dto.ts",
+      "size": 825,
+      "modified": "2026-11-15T14:12:47.426Z"
+    },
+    {
+      "path": "src\\infrastructure\\http\\dto\\create-wallet.dto.ts",
+      "size": 619,
+      "modified": "2026-11-15T14:12:40.444Z"
+    },
+    {
+      "path": "src\\application\\use-cases\\reconcile-wallet.use-case.ts",
+      "size": 1947,
+      "modified": "2026-11-15T14:12:32.698Z"
+    },
+    {
+      "path": "src\\application\\use-cases\\process-wager-transaction.use-case.ts",
+      "size": 16716,
+      "modified": "2026-11-15T14:12:24.277Z"
+    },
+    {
+      "path": "src\\application\\use-cases\\create-wallet.use-case.ts",
+      "size": 2730,
+      "modified": "2026-11-15T14:11:47.414Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\entities\\wager-transaction.entity.ts",
+      "size": 1592,
+      "modified": "2026-11-15T14:10:38.229Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\entities\\wallet-ledger-entry.entity.ts",
+      "size": 866,
+      "modified": "2026-11-15T14:10:29.704Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\repositories\\outbox.repository.ts",
+      "size": 1735,
+      "modified": "2026-11-15T14:10:07.734Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\repositories\\inbox.repository.ts",
+      "size": 1205,
+      "modified": "2026-11-15T14:10:00.386Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\repositories\\wager-transaction.repository.ts",
+      "size": 3477,
+      "modified": "2026-11-15T14:09:53.320Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\repositories\\ledger.repository.ts",
+      "size": 3456,
+      "modified": "2026-11-15T14:09:43.377Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\repositories\\wallet.repository.ts",
+      "size": 2722,
+      "modified": "2026-11-15T14:09:33.745Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\migrations\\Migration20261115000001.ts",
+      "size": 3800,
+      "modified": "2026-11-15T14:09:23.135Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\mikro-orm.config.ts",
+      "size": 1290,
+      "modified": "2026-11-15T14:08:56.150Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\entities\\outbox-message.entity.ts",
+      "size": 744,
+      "modified": "2026-11-15T14:08:47.578Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\entities\\inbox-message.entity.ts",
+      "size": 464,
+      "modified": "2026-11-15T14:08:42.327Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\entities\\wallet.entity.ts",
+      "size": 711,
+      "modified": "2026-11-15T14:08:24.174Z"
+    },
+    {
+      "path": "test\\unit\\canonical-hash.spec.ts",
+      "size": 1112,
+      "modified": "2026-11-15T14:02:20.971Z"
+    },
+    {
+      "path": "test\\unit\\wager-transaction.spec.ts",
+      "size": 3076,
+      "modified": "2026-11-15T14:02:06.088Z"
+    },
+    {
+      "path": "test\\unit\\wallet.spec.ts",
+      "size": 3475,
+      "modified": "2026-11-15T14:01:56.457Z"
+    },
+    {
+      "path": "test\\unit\\money.spec.ts",
+      "size": 2815,
+      "modified": "2026-11-15T14:01:47.022Z"
+    },
+    {
+      "path": "src\\domain\\utils\\canonical-hash.ts",
+      "size": 1117,
+      "modified": "2026-11-15T14:01:35.921Z"
+    },
+    {
+      "path": "src\\domain\\entities\\outbox-message.ts",
+      "size": 2368,
+      "modified": "2026-11-15T14:01:29.287Z"
+    },
+    {
+      "path": "src\\domain\\events\\integration-event.ts",
+      "size": 4467,
+      "modified": "2026-11-15T14:01:13.652Z"
+    },
+    {
+      "path": "src\\domain\\entities\\inbox-message.ts",
+      "size": 1284,
+      "modified": "2026-11-15T14:01:01.462Z"
+    },
+    {
+      "path": "src\\domain\\entities\\wager-transaction.ts",
+      "size": 6341,
+      "modified": "2026-11-15T14:00:53.622Z"
+    },
+    {
+      "path": "src\\domain\\entities\\wallet.ts",
+      "size": 3517,
+      "modified": "2026-11-15T14:00:38.804Z"
+    },
+    {
+      "path": "src\\domain\\entities\\wallet-ledger-entry.ts",
+      "size": 2463,
+      "modified": "2026-11-15T14:00:23.470Z"
+    },
+    {
+      "path": "src\\domain\\value-objects\\money.ts",
+      "size": 3668,
+      "modified": "2026-11-15T14:00:06.948Z"
+    },
+    {
+      "path": "src\\domain\\errors\\domain-errors.ts",
+      "size": 1577,
+      "modified": "2026-11-15T13:59:50.145Z"
+    },
+    {
+      "path": "tsconfig.json",
+      "size": 759,
+      "modified": "2026-11-15T13:59:16.740Z"
+    }
+  ],
+  "summary": {
+    "totalFiles": 47,
+    "recentlyModified": 3,
+    "keyFiles": [
+      "src\\main.ts",
+      "src\\infrastructure\\observability\\structured-logger.service.ts",
+      "test\\concurrency\\concurrent-bets.spec.ts"
+    ],
+    "sessionContext": {
+      "imports": [],
+      "exports": [],
+      "functions": [
+        "function bootstrap",
+        "function createConcurrentHarness"
+      ],
+      "todos": []
+    }
+  }
+}

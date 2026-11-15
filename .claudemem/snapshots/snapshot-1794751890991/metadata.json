@@ -1,0 +1,186 @@
+{
+  "id": "snapshot-1794751890991",
+  "timestamp": 1794751890991,
+  "date": "2026-11-15T14:11:31.406Z",
+  "git": {
+    "branch": "main",
+    "modified": [],
+    "created": [],
+    "deleted": [],
+    "recentCommits": [
+      {
+        "hash": "c7143e6d041585d6913f56eb7415105e074f83dc",
+        "date": "2026-07-29T14:02:03-03:00",
+        "message": "Update README.md",
+        "refs": "HEAD -> main, origin/main, origin/HEAD",
+        "body": "",
+        "author_name": "Robson Cezario",
+        "author_email": "42919834+robsoncezario@users.noreply.github.com"
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "src\\infrastructure\\database\\entities\\wager-transaction.entity.ts",
+      "size": 1592,
+      "modified": "2026-11-15T14:10:38.229Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\entities\\wallet-ledger-entry.entity.ts",
+      "size": 866,
+      "modified": "2026-11-15T14:10:29.704Z"
+    },
+    {
+      "path": "package.json",
+      "size": 1330,
+      "modified": "2026-11-15T14:10:23.277Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\repositories\\outbox.repository.ts",
+      "size": 1735,
+      "modified": "2026-11-15T14:10:07.734Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\repositories\\inbox.repository.ts",
+      "size": 1205,
+      "modified": "2026-11-15T14:10:00.386Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\repositories\\wager-transaction.repository.ts",
+      "size": 3477,
+      "modified": "2026-11-15T14:09:53.320Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\repositories\\ledger.repository.ts",
+      "size": 3456,
+      "modified": "2026-11-15T14:09:43.377Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\repositories\\wallet.repository.ts",
+      "size": 2722,
+      "modified": "2026-11-15T14:09:33.745Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\migrations\\Migration20261115000001.ts",
+      "size": 3800,
+      "modified": "2026-11-15T14:09:23.135Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\mikro-orm.config.ts",
+      "size": 1290,
+      "modified": "2026-11-15T14:08:56.150Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\entities\\outbox-message.entity.ts",
+      "size": 744,
+      "modified": "2026-11-15T14:08:47.578Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\entities\\inbox-message.entity.ts",
+      "size": 464,
+      "modified": "2026-11-15T14:08:42.327Z"
+    },
+    {
+      "path": "src\\infrastructure\\database\\entities\\wallet.entity.ts",
+      "size": 711,
+      "modified": "2026-11-15T14:08:24.174Z"
+    },
+    {
+      "path": "test\\unit\\canonical-hash.spec.ts",
+      "size": 1112,
+      "modified": "2026-11-15T14:02:20.971Z"
+    },
+    {
+      "path": "test\\unit\\wager-transaction.spec.ts",
+      "size": 3076,
+      "modified": "2026-11-15T14:02:06.088Z"
+    },
+    {
+      "path": "test\\unit\\wallet.spec.ts",
+      "size": 3475,
+      "modified": "2026-11-15T14:01:56.457Z"
+    },
+    {
+      "path": "test\\unit\\money.spec.ts",
+      "size": 2815,
+      "modified": "2026-11-15T14:01:47.022Z"
+    },
+    {
+      "path": "src\\domain\\utils\\canonical-hash.ts",
+      "size": 1117,
+      "modified": "2026-11-15T14:01:35.921Z"
+    },
+    {
+      "path": "src\\domain\\entities\\outbox-message.ts",
+      "size": 2368,
+      "modified": "2026-11-15T14:01:29.287Z"
+    },
+    {
+      "path": "src\\domain\\events\\integration-event.ts",
+      "size": 4467,
+      "modified": "2026-11-15T14:01:13.652Z"
+    },
+    {
+      "path": "src\\domain\\entities\\inbox-message.ts",
+      "size": 1284,
+      "modified": "2026-11-15T14:01:01.462Z"
+    },
+    {
+      "path": "src\\domain\\entities\\wager-transaction.ts",
+      "size": 6341,
+      "modified": "2026-11-15T14:00:53.622Z"
+    },
+    {
+      "path": "src\\domain\\entities\\wallet.ts",
+      "size": 3517,
+      "modified": "2026-11-15T14:00:38.804Z"
+    },
+    {
+      "path": "src\\domain\\entities\\wallet-ledger-entry.ts",
+      "size": 2463,
+      "modified": "2026-11-15T14:00:23.470Z"
+    },
+    {
+      "path": "src\\domain\\value-objects\\money.ts",
+      "size": 3668,
+      "modified": "2026-11-15T14:00:06.948Z"
+    },
+    {
+      "path": "src\\domain\\errors\\domain-errors.ts",
+      "size": 1577,
+      "modified": "2026-11-15T13:59:50.145Z"
+    },
+    {
+      "path": "tsconfig.json",
+      "size": 759,
+      "modified": "2026-11-15T13:59:16.740Z"
+    },
+    {
+      "path": "README.md",
+      "size": 28243,
+      "modified": "2026-11-15T13:54:47.753Z"
+    }
+  ],
+  "summary": {
+    "totalFiles": 28,
+    "recentlyModified": 28,
+    "keyFiles": [
+      "src\\infrastructure\\database\\entities\\wager-transaction.entity.ts",
+      "src\\infrastructure\\database\\entities\\wallet-ledger-entry.entity.ts",
+      "package.json",
+      "src\\infrastructure\\database\\repositories\\outbox.repository.ts",
+      "src\\infrastructure\\database\\repositories\\inbox.repository.ts",
+      "src\\infrastructure\\database\\repositories\\wager-transaction.repository.ts",
+      "src\\infrastructure\\database\\repositories\\ledger.repository.ts",
+      "src\\infrastructure\\database\\repositories\\wallet.repository.ts",
+      "src\\infrastructure\\database\\migrations\\Migration20261115000001.ts",
+      "src\\infrastructure\\database\\mikro-orm.config.ts"
+    ],
+    "sessionContext": {
+      "imports": [],
+      "exports": [],
+      "functions": [],
+      "todos": []
+    }
+  }
+}

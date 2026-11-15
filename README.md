@@ -1,5 +1,47 @@
 # Technical Challenge — Distributed Wagering Processor
 
+> **Implementação Oficial da Solução para a Jungle Gaming 🦧**  
+> Arquitetura detalhada, justificativas e decisões técnicas disponíveis em [ARCHITECTURE.md](ARCHITECTURE.md).
+
+---
+
+## ⚡ Guia Rápido de Execução
+
+### 1. Requisitos
+- **Bun 1.x**
+- **Docker & Docker Compose**
+
+### 2. Rodar a Bateria de Testes Automatizados (Zero Dependências Externas)
+Para rodar a suíte completa de testes unitários e de casos de uso (concorrência isolada, idempotência, máquina de estados):
+```bash
+bun test
+```
+
+### 3. Rodar a Verificação Estática de Tipos (TypeScript Estrito)
+```bash
+bun run lint
+```
+
+### 4. Subir a Infraestrutura Completa (3 Instâncias + PostgreSQL + SQS LocalStack)
+Para subir o banco de dados com constraints nativas, filas SQS FIFO e **3 instâncias simultâneas da aplicação**:
+```bash
+docker compose up --build
+```
+Endpoints disponíveis:
+- Instância 1: `http://localhost:3001`
+- Instância 2: `http://localhost:3002`
+- Instância 3: `http://localhost:3003`
+- LocalStack SQS: `http://localhost:4566`
+- PostgreSQL: `localhost:5432` (db: `wagering_db`, user: `postgres`, pass: `postgrespassword`)
+
+### 5. Rodar o Teste de Carga e Benchmark de Concorrência
+Com a infraestrutura no ar, execute o benchmark automatizado (medição de throughput, p50/p95/p99 e conferência do invariante contábil):
+```bash
+bun run test:load
+```
+
+---
+
 ## Bem-vindo à Jungle Gaming 🦧
 
 A **Jungle Gaming** é uma software house especializada em iGaming — desenvolvemos plataformas de cassino online com tecnologia de ponta: NestJS, Bun, TanStack, DDD e arquitetura orientada a eventos. Somos apaixonados por engenharia de software e acreditamos que grandes produtos nascem de grandes times.
