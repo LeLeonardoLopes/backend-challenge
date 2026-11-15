@@ -72,57 +72,76 @@ export class ProcessWagerTransactionUseCase {
 
     const money = Money.from(dto.money);
 
-    return em.transactional(async (txEm) => {
-      // 2. Check Idempotency Key
-      const existingTx = await this.wagerRepo.findByIdempotencyKey(txEm, idempotencyKey);
-      if (existingTx) {
-        if (!existingTx.matchesPayload(payloadHash)) {
-          throw new IdempotencyConflictError(idempotencyKey);
+    try {
+      return await em.transactional(async (txEm) => {
+        // 2. Check Idempotency Key
+        const existingTx = await this.wagerRepo.findByIdempotencyKey(txEm, idempotencyKey);
+        if (existingTx) {
+          if (!existingTx.matchesPayload(payloadHash)) {
+            throw new IdempotencyConflictError(idempotencyKey);
+          }
+
+          // Idempotent Replay: Fetch current wallet balance to return stable response
+          const wallet = await this.walletRepo.findById(txEm, dto.walletId);
+          return {
+            transactionId: existingTx.id,
+            status: existingTx.status,
+            balance: wallet ? wallet.balance.toJSON() : dto.money,
+            failureCode: existingTx.failureCode,
+            idempotentReplay: true,
+          };
         }
 
-        // Idempotent Replay: Fetch current wallet balance to return stable response
-        const wallet = await this.walletRepo.findById(txEm, dto.walletId);
-        return {
-          transactionId: existingTx.id,
-          status: existingTx.status,
-          balance: wallet ? wallet.balance.toJSON() : dto.money,
-          failureCode: existingTx.failureCode,
-          idempotentReplay: true,
-        };
-      }
+        // 3. Acquire Exclusive Pessimistic Lock on the Wallet (SELECT ... FOR UPDATE)
+        const wallet = await this.walletRepo.findByIdForUpdate(txEm, dto.walletId);
+        if (!wallet) {
+          throw new DomainError(`Wallet ${dto.walletId} not found`, "WALLET_NOT_FOUND");
+        }
 
-      // 3. Acquire Exclusive Pessimistic Lock on the Wallet (SELECT ... FOR UPDATE)
-      const wallet = await this.walletRepo.findByIdForUpdate(txEm, dto.walletId);
-      if (!wallet) {
-        throw new DomainError(`Wallet ${dto.walletId} not found`, "WALLET_NOT_FOUND");
-      }
+        if (wallet.currency !== money.currency) {
+          throw new CurrencyMismatchError(wallet.currency, money.currency);
+        }
 
-      if (wallet.currency !== money.currency) {
-        throw new CurrencyMismatchError(wallet.currency, money.currency);
-      }
+        if (wallet.playerId !== dto.playerId) {
+          throw new DomainError("Player ID does not match wallet owner", "PLAYER_MISMATCH");
+        }
 
-      if (wallet.playerId !== dto.playerId) {
-        throw new DomainError("Player ID does not match wallet owner", "PLAYER_MISMATCH");
-      }
+        // 4. Create Transaction Aggregate
+        const tx = WagerTransaction.create({
+          providerId: dto.providerId,
+          externalTransactionId: dto.externalTransactionId,
+          idempotencyKey,
+          payloadHash,
+          walletId: dto.walletId,
+          playerId: dto.playerId,
+          roundId: dto.roundId,
+          gameId: dto.gameId,
+          kind: dto.kind,
+          money,
+          referenceExternalTransactionId: dto.referenceExternalTransactionId,
+        });
 
-      // 4. Create Transaction Aggregate
-      const tx = WagerTransaction.create({
-        providerId: dto.providerId,
-        externalTransactionId: dto.externalTransactionId,
-        idempotencyKey,
-        payloadHash,
-        walletId: dto.walletId,
-        playerId: dto.playerId,
-        roundId: dto.roundId,
-        gameId: dto.gameId,
-        kind: dto.kind,
-        money,
-        referenceExternalTransactionId: dto.referenceExternalTransactionId,
+        // 5. Execute Business Rules by Kind
+        return this.applyTransaction(txEm, wallet, tx, correlationId);
       });
-
-      // 5. Execute Business Rules by Kind
-      return this.applyTransaction(txEm, wallet, tx, correlationId);
-    });
+    } catch (err: any) {
+      // Handle PostgreSQL unique constraint collision across concurrent instances
+      if (err.message?.includes("unique_idempotency_key") || err.code === "23505") {
+        const cleanEm = em.fork();
+        const existingTx = await this.wagerRepo.findByIdempotencyKey(cleanEm, idempotencyKey);
+        if (existingTx) {
+          const wallet = await this.walletRepo.findById(cleanEm, dto.walletId);
+          return {
+            transactionId: existingTx.id,
+            status: existingTx.status,
+            balance: wallet ? wallet.balance.toJSON() : dto.money,
+            failureCode: existingTx.failureCode,
+            idempotentReplay: true,
+          };
+        }
+      }
+      throw err;
+    }
   }
 
   private async applyTransaction(

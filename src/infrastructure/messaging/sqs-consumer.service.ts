@@ -8,6 +8,7 @@ import {
   SQSClient,
   ReceiveMessageCommand,
   DeleteMessageCommand,
+  GetQueueUrlCommand,
   Message,
 } from "@aws-sdk/client-sqs";
 import { EntityManager } from "@mikro-orm/postgresql";
@@ -46,6 +47,20 @@ export class SqsConsumerService implements OnModuleInit, OnModuleDestroy {
     this.queueUrl = `${endpoint}/000000000000/wager-transactions.fifo`;
 
     this.isRunning = true;
+    this.resolveQueueAndStart();
+  }
+
+  private async resolveQueueAndStart() {
+    try {
+      const res = await this.sqsClient.send(
+        new GetQueueUrlCommand({ QueueName: "wager-transactions.fifo" })
+      );
+      if (res.QueueUrl) {
+        this.queueUrl = res.QueueUrl;
+      }
+    } catch {
+      // Fallback to default constructed URL
+    }
     this.startPolling();
   }
 

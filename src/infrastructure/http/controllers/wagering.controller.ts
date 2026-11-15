@@ -26,6 +26,7 @@ export class WageringController {
     @Headers("idempotency-key") idempotencyKeyHeader: string,
     @Body() dto: ProcessWagerDto
   ) {
+    const em = this.em.fork();
     const idempotencyKey =
       idempotencyKeyHeader?.trim() || `${dto.providerId}:${dto.externalTransactionId}`;
 
@@ -33,12 +34,13 @@ export class WageringController {
       throw new BadRequestException("Idempotency-Key header is required");
     }
 
-    return this.processWagerUseCase.execute(this.em, dto, idempotencyKey);
+    return this.processWagerUseCase.execute(em, dto, idempotencyKey);
   }
 
   @Get("wagering/transactions/:transactionId")
   async getTransactionById(@Param("transactionId") transactionId: string) {
-    const tx = await this.wagerRepo.findById(this.em, transactionId);
+    const em = this.em.fork();
+    const tx = await this.wagerRepo.findById(em, transactionId);
     if (!tx) {
       throw new NotFoundException(`Transaction ${transactionId} not found`);
     }
@@ -50,8 +52,9 @@ export class WageringController {
     @Param("providerId") providerId: string,
     @Param("externalTransactionId") externalTransactionId: string
   ) {
+    const em = this.em.fork();
     const tx = await this.wagerRepo.findByExternalId(
-      this.em,
+      em,
       providerId,
       externalTransactionId
     );

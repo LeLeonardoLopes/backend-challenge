@@ -26,12 +26,14 @@ export class WalletsController {
 
   @Post()
   async createWallet(@Body() dto: CreateWalletDto) {
-    return this.createWalletUseCase.execute(this.em, dto);
+    const em = this.em.fork();
+    return this.createWalletUseCase.execute(em, dto);
   }
 
   @Get(":walletId")
   async getWallet(@Param("walletId") walletId: string) {
-    const wallet = await this.walletRepo.findById(this.em, walletId);
+    const em = this.em.fork();
+    const wallet = await this.walletRepo.findById(em, walletId);
     if (!wallet) {
       throw new NotFoundException(`Wallet ${walletId} not found`);
     }
@@ -49,9 +51,10 @@ export class WalletsController {
     @Query("limit") limit = 50,
     @Query("cursor") cursor?: string
   ) {
+    const em = this.em.fork();
     const parsedLimit = Math.min(100, Math.max(1, Number(limit) || 50));
     const result = await this.ledgerRepo.findByWalletWithCursor(
-      this.em,
+      em,
       walletId,
       parsedLimit,
       cursor
@@ -74,6 +77,7 @@ export class WalletsController {
 
   @Post(":walletId/reconciliation")
   async reconcile(@Param("walletId") walletId: string) {
-    return this.reconcileUseCase.execute(this.em, walletId);
+    const em = this.em.fork();
+    return this.reconcileUseCase.execute(em, walletId);
   }
 }
